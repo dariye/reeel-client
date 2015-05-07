@@ -8,7 +8,7 @@
 // 'test/spec/**/*.js'
 
 module.exports = function (grunt) {
-
+  var modRewrite = require('connect-modrewrite');
   // Load grunt tasks automatically
   require('load-grunt-tasks')(grunt);
 
@@ -74,19 +74,28 @@ module.exports = function (grunt) {
       livereload: {
         options: {
           open: true,
-          middleware: function (connect) {
-            return [
+          base: [
+            '.tmp',
+            '<%= yeoman.app %>'
+          ],
+
+          middleware: function (connect, options) {
+            var middlewares = [];
+            
+            middlewares.push(modRewrite(['^[^\\.]*$ /index.html [L]']));
+            options.base.forEach(function(base) {
+              middlewares.push(connect.static(base));
+            });
+
+            middlewares.push(
               connect.static('.tmp'),
               connect().use(
                 '/bower_components',
                 connect.static('./bower_components')
-              ),
-              connect().use(
-                '/app/assets/css',
-                connect.static('./app/assets/css')
-              ),
-              connect.static(appConfig.app)
-            ];
+              )
+            );
+              
+            return middlewares;
           }
         }
       },

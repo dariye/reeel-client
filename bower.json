@@ -3,7 +3,6 @@
   "version": "0.0.0",
   "dependencies": {
     "angular": "^1.3.0",
-    "bootstrap-sass-official": "^3.2.0",
     "angular-animate": "^1.3.0",
     "angular-aria": "^1.3.0",
     "angular-cookies": "^1.3.0",
@@ -13,10 +12,15 @@
     "angular-sanitize": "^1.3.0",
     "angular-touch": "^1.3.0",
     "angular-ui-router": "~0.2.14",
-    "angular-file-upload": "~1.1.5"
+    "angular-file-upload": "~1.1.5",
+    "parse": "~1.4.2",
+    "parse-angular-patch": "~0.1.2",
+    "ui-router-extras": "~0.0.13",
+    "materialize": "master"
   },
   "devDependencies": {
-    "angular-mocks": "^1.3.0"
+    "angular-mocks": "^1.3.0",
+    "ui-router-extras": "~0.0.13"
   },
   "appPath": "app",
   "moduleName": "reeelApp"

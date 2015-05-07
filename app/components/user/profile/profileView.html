@@ -1,0 +1,94 @@
+<div class="container">
+  <h1 class="page-header">Profile</h1>
+  <div class="row">
+    <form class="form-horizontal" role="form" ng-submit="updateUserWithProfile()">
+      <!-- left column -->
+      <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="text-center">
+          <img src="http://lorempixel.com/200/200/people/9/" id="profilePhoto" class="avatar img-circle img-thumbnail" alt="avatar">
+          <h6>Upload a different photo...</h6>
+          <input type="file" id="photo" class="text-center center-block well well-sm">
+        </div>
+      </div>
+      <!-- edit form column -->
+      <div class="col-md-8 col-sm-6 col-xs-12 personal-info">
+      
+      <h3>Information</h3>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Theater Name</label>
+          <div class="col-lg-8">
+            <input class="form-control" placeholder="Name" ng-model="name" type="text">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Description</label>
+          <div class="col-lg-8">
+            <textarea class="form-control" rows="3" ng-model="description"></textarea>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Email</label>
+          <div class="col-lg-8">
+            <input class="form-control" placeholder="Email" type="text" ng-model="profileEmail">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Phone Number</label>
+          <div class="col-lg-8">
+            <input class="form-control" type="text" ng-model="phone">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Address</label>
+          <div class="col-md-8">
+            <input class="form-control" type="address" ng-autocomplete ng-model="address" options="options" details="details">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label">City</label>
+          <div class="col-md-8">
+            <input class="form-control" type="text" ng-autocomplete ng-model="city" options="options" details="details">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label"></label>
+          <div class="col-md-8">
+            <input class="btn btn-primary" value="Save Profile" type="submit">
+            <span></span>
+            <input class="btn btn-default" value="Cancel" type="reset">
+          </div>
+        </div>
+    </form>
+      <hr>
+      <form id="login-info" ng-submit="updateUser()">
+        <div class="form-group">
+          <label class="col-md-3 control-label">Email</label>
+          <div class="col-md-8">
+            <input class="form-control" type="email" ng-model="email">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label">Username</label>
+          <div class="col-md-8">
+            <input class="form-control" type="text" ng-model="username">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label">Change Password</label>
+          <div class="col-md-8">
+            <input class="form-control" type="password" ng-model="password">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label"></label>
+          <div class="col-md-8">
+            <input type="submit" class="btn btn-primary" value="Update Login Information">
+            <span></span>
+            <input class="btn btn-default" value="Cancel" type="reset">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+

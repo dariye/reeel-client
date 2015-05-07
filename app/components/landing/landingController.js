@@ -8,10 +8,6 @@
  * Controller of the reeelApp
  */
 angular.module('reeelApp')
-  .controller('MainCtrl', function ($scope) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-  });
+  .controller('LandingController', ['$scope', function ($scope) {
+    
+  }]);

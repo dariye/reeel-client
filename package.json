@@ -2,7 +2,9 @@
   "name": "reeel",
   "version": "0.0.0",
   "dependencies": {
-    "kaiseki": "*"
+    "connect-modrewrite": "^0.8.1",
+    "kaiseki": "*",
+    "wiredep": "^2.2.2"
   },
   "repository": {},
   "devDependencies": {

@@ -1,7 +1,31 @@
 $icon-font-path: "../../../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
 
 @import "../../../bower_components/bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
+/**
+ * ng-cloak hack
+ */
+/* 
+  Allow angular.js to be loaded in body, hiding cloaked elements until 
+  templates compile.  The !important is important given that there may be 
+  other selectors that are more specific or come later and might alter display.  
+ */
+[ng\:cloak], [ng-cloak], .ng-cloak {
+  display: none !important;
+}
 
+
+/**
+* Style
+* 1. General
+* 2. Navigation
+* 
+*
+*  . Cards
+*/
+
+/**
+* General
+*/
 .browsehappy {
   margin: 0.2em 0;
   background: #ccc;
@@ -23,7 +47,6 @@ body {
 
 /* Custom page header */
 .header {
-  border-bottom: 1px solid #e5e5e5;
   margin-bottom: 10px;
 
   /* Make the masthead heading the same height as the navigation */
@@ -65,6 +88,58 @@ body {
     margin-top: 28px;
   }
 }
+
+/**
+* Navigation
+*/
+.nav>li>a:hover, .nav>li>a:focus, .nav .open>a, .nav .open>a:hover, .nav .open>a:focus {
+    background:#fff;
+}
+.dropdown {
+    border-radius:4px;
+}
+.dropdown-menu>li>a {
+    color:#428bca;
+}
+.dropdown ul.dropdown-menu {
+    border-radius:4px;
+    box-shadow:none;
+    margin-top:20px;
+    width:200px;
+}
+.dropdown ul.dropdown-menu:before {
+    content: "";
+    border-bottom: 10px solid #fff;
+    border-right: 10px solid transparent;
+    border-left: 10px solid transparent;
+    position: absolute;
+    top: -10px;
+    right: 16px;
+    z-index: 10;
+}
+.dropdown ul.dropdown-menu:after {
+    content: "";
+    border-bottom: 12px solid #ccc;
+    border-right: 12px solid transparent;
+    border-left: 12px solid transparent;
+    position: absolute;
+    top: -12px;
+    right: 14px;
+    z-index: 9;
+}
+
+/**
+* Notifications
+*/
+#notify{    
+  width: 100%;    
+  top: 52px;
+  font-weight: bold;    
+  z-index: 1031; /* Max Z-Index in Fixed Nav Menu is 1030*/
+  text-align: center;
+  position: fixed;
+}
+
 
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
