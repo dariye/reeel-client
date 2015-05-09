@@ -24,58 +24,56 @@
 
     <!-- Add your site or application content here -->
     <!-- Notifications -->
-    <div id="notify" ng-if="alert()" ng-model="notify">
+    <!-- <div id="notify" ng-if="alert()" ng-model="notify">
       <div class="alert alert-dismissable page-alert" ng-class="'alert-' + notify.type">
         <button type="button" ng-click="close()" class="close"><span aria-hidden="true">x</span><span class="sr-only">Close</span></button>
           {{notify.message}}  
       </div>
-    </div><!-- end of notifications -->
+      </div> --><!-- end of notifications -->
     <!-- Dropdown Structure -->
-    <ul id="dropdown1" class="dropdown-content">
+    <ul id="dropdown1" style="width: 200px;" class="dropdown-content">
       <li><a ui-sref="profile">Account Settings<span class="medium mdi-action-settings right"></span></a></li>
       <li class="divider"></li>
       <li><a ng-click="logOut()">Sign Out<span class="medium mdi-action-exit-to-app right"></span></a></li>
     </ul>
+    <div class="navbar-fixed">
+      <nav class="light-blue lighten-1" role="navigation">
+        <div class="container">
+          <div class="nav-wrapper">
+            <div class="valign-demo valign-wrapper left">
+              <a id="logo-container" href="#" class="brand-logo">
+                <div class="hide-on-med-and-down">
+                  <span style="padding-left: 20px;"class="left" ng-click="go('landing')">Reeel</span>
+                </div>
+              </a>
 
-    <nav class="light-blue lighten-1" role="navigation">
-      <div class="nav-wrapper container">
-        <a id="logo-container" href="#" class="brand-logo">Reeel</a>
-        <ul class="left hide-on-med-and-down">
-          <li class="active"><a ui-sref="landing">Home</a></li>
-        </ul>
-        <ul ng-show="currentUser" class="right hide-on-med-and-down">
-          <li><a class="dropdown-button" href="#!" data-activates="dropdown1"><i class="large mdi-action-account-circle"></i></a></li>
-        </ul>
-        <ul ng-hide="currentUser" class="right hide-on-med-and-down">
-          <li><button type="button" ng-click="go('signup')" class="btn btn-success navbar-btn btn-circle">Sign Up</button></li>
-          <li><button type="button" ng-click="go('login')" class="btn btn-default navbar-btn">Sign In</button></li>  
-        </ul>
-
-        <ul id="nav-mobile" class="side-nav">
-           <ul ng-show="currentUser" class="right hide-on-med-and-down">
-              <li><a class="dropdown-button" href="#!" data-activates="dropdown1"><i class="large mdi-action-account-circle"></i></a></li>
-          </ul>
-          <ul ng-hide="currentUser">
-            <li><button type="button" ng-click="go('signup')" class="btn btn-success navbar-btn btn-circle">Sign Up</button></li>
-            <li><button type="button" ng-click="go('login')" class="btn btn-default navbar-btn">Sign In</button></li>  
-          </ul>
-        </ul>
-        <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+              <!-- ui-sref-active="active" --> 
+            </div>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+              <li style="width: 200px;" ng-show="currentUser"><a class="dropdown-button" href="#!" data-activates="dropdown1"><i class="large mdi-action-account-circle"></i></a></li>
+              <li style="width: 200px;" ng-hide="currentUser"><button type="button" ng-click="go('signup')" class="btn btn-success navbar-btn btn-circle">Sign Up</button></li>
+              <li style="width: 200px;"ng-hide="currentUser"><button type="button" ng-click="go('login')" class="btn btn-default navbar-btn">Sign In</button></li> 
+            </ul>
+            <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+          </div>
       </div>
     </nav>
 
-    <div class="row">
-      <div class="col s12">
+    <div style="padding-top: 80px;"class="container">
         <div ui-view=""></div>
-      </div> 
     </div>
 
-    <div class="footer">
-      <div class="container text-center">
-        <p><span class="glyphicon glyphicon-copyright-mark"></span> Reeel, 2015</p>
+    <footer class="page-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col l6 s12">
+            <p><span class="glyphicon glyphicon-copyright-mark"></span> Reeel, 2015</p>
+          </div>
+          <div class="col l4 offset-l2"></div>
+        </div>
       </div>
-    </div>
-    
+    </footer>
+
     <!-- For ngAutoComplete -->
     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
@@ -131,8 +129,15 @@
         <!-- TODO: Make directive for plugins -->
         <script type="text/javascript">
           $(document).ready(function(){
-            $(".dropdown-button").dropdown();
+            $('.dropdown-button').dropdown();
+            $('.modal-trigger').leanModal();
+            $('select').material_select();
+            $('select').material_select('destroy');
+            $('.datepicker').pickadate({
+              selectMonths: true, // Creates a dropdown to control month
+              selectYears: 15 // Creates a dropdown of 15 years to control year
+            });
           });
         </script>
-</body>
+    </body>
 </html>

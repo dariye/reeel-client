@@ -28,7 +28,7 @@ angular.module('reeelApp')
           success: function(user) {
             $rootScope.notify = {type: 'success', message: 'Successfully Logged In'};
             $rootScope.currentUser = user;
-            $state.reload(); //TODO: find alternate solution
+            //$state.reload(); //TODO: find alternate solution
           },
           error: function(user, error) {
             $rootScope.notify = {type: 'error', message: 'Error: ' + error.code + ' ' + error.message};

@@ -9,7 +9,7 @@ angular.module('reeelApp')
      */
     if ($rootScope.currentUser){
       $rootScope.notify = { type: 'warning', message: 'Already logged in' };
-      $rootScope.go('home');
+      $rootScope.go('landing');
     }
    /**
    * $scope.username as username

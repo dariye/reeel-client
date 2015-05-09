@@ -12,7 +12,8 @@ angular.module('reeelApp')
       return false;
     }
   };
- 
+
+
   $stateProvider
     .state('landing', {
       url: '/',
@@ -51,15 +52,30 @@ angular.module('reeelApp')
       }
     })
     .state('screening', {
-      url: '/screenings',
-      parent: 'user',
+      abstract: true,
+      templateUrl: 'components/screening/screeningView.html'
+    })
+    .state('screening.create', {
+      url: '/new',
+      parent: 'screening',
       controller: 'ScreeningController',
-      templateUrl: 'components/screening/screeningView.html',
+      templateUrl: 'components/screening/create/createScreeningView.html',
       resolve: {
         authenticated: authenticated
       }
-    });
-
+    })
+    .state('screening.update', {
+      url: '/screening/update/:screeningId',
+      parent: 'screening',
+      controller: 'ScreeningController',
+      templateUrl: 'components/screening/update/updateScreeningView.html',
+      resolve: {
+        authenticated: authenticated,
+        screeningId: ['$stateParams', function($stateParams){
+          return $stateParams.screeningId;
+        }]
+      }
+    }); 
   $urlRouterProvider.otherwise("/");
   $locationProvider.html5Mode(true).hashPrefix('!');
   

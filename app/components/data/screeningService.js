@@ -7,7 +7,7 @@ angular.module('reeelApp')
     var Screening = Parse.Object.extend('Screening');
 
     return {
-      createScreening: function(screeningTitle, screeningDate, screeningSynopsis, screeningPoster, screeningReleaseDate, screeningContentRating, screeningDuration, screeningGenre, screeningDirectorInfo, screeningStarInfo, screeningFee, screeningDiscount){
+      createScreening: function(screeningTitle, screeningDate, screeningSynopsis, screeningPoster, screeningReleaseDate, screeningContentRating, screeningDuration, screeningGenre, screeningDirectorInfo, screeningStarInfo, screeningFee){
       var screening = new Screening();
       var user = Parse.User.current();
 
@@ -22,7 +22,6 @@ angular.module('reeelApp')
       screening.set('screeningDirectorInfo', screeningDirectorInfo);
       screening.set('screeningStarInfo', screeningStarInfo);
       screening.set('screeningFee', screeningFee);
-      screening.set('screeningDiscount', screeningDiscount);
       
       /**
        * add a user a value in a screening
@@ -41,24 +40,63 @@ angular.module('reeelApp')
 
       },
       getAllScreening: function(){
-        var user = Parse.User.current();
-        var query = new Parse.Query('Screening');
-        return query.equalTo('createdBy');  
+        var Screening = Parse.Object.extend('Screening');
+        this.query = (new Parse.Query(Screening));
+        
+        var fetched = this.query.find({
+            success: function(screenings){
+              
+              // console.log(screenings);
+            },
+            error: function(error){
+              consol.log('Error: ' + error.code + ' ' + error.message);
+            }
+          });
+        return fetched;
       },
-      updateScreening: function(screeningId, screeningTitle, screeningDate, screeningSynopsis, screeningPoster, releaseDate, contentRating, screeningDuration, screeningGenre, screeningDirectorInfo, screeningStarInfo, screeningFee, screeningDiscount){
+      getScreeningWithId: function(id){
+        var Screening = Parse.Object.extend('Screening');
+        this.query = (new Parse.Query(Screening));
+        
+        var fetched = this.query.get(id);
+
+        return fetched;
+      },
+      updateScreening: function(screeningId, screeningTitle, screeningDate, screeningSynopsis, screeningPoster, screeningReleaseDate, screeningContentRating, screeningDuration, screeningGenre, screeningDirectorInfo, screeningStarInfo, screeningFee){
       var user = Parse.User.current();
-      var query = new Parse.Query('Screening');
-      // var screening = fetchedComment.tagName 
+      // var query = new Parse.Query('Screening');
 
-      (typeof(screeningTitle) == 'undefined') ? console.log('not creating with screening title') : screening.set('screeningTitle', screeningTitle); 
-      (typeof(screeningDate) == 'undefined') ? console.log('not creating with screening date') : screening.set('screeningDate', screeningDate);
-      (typeof(screeningSynopsis) == 'undefined') ? console.log('not creating with screeningSynopsis') : screening.set('phone', screeningSynopsis);
-      (typeof(email) == 'undefined') ? console.log('not updating with email') : user.set('profileEmail', email); 
-      (typeof(description) == 'undefined') ? console.log('not updating with description') : user.set('description', description);
-      (typeof(city) == 'undefined') ? console.log('not updating with city') : user.set('city', city);
+      this.getScreeningWithId(screeningId).then(
+        function(screening){
+           console.log('begin update');
+          (typeof(screeningTitle) == 'undefined') ? console.log('not creating with screening title') : screening.set('screeningTitle', screeningTitle); 
+          (typeof(screeningDate) == 'undefined') ? console.log('not creating with screening date') : screening.set('screeningDate', screeningDate);
+          (typeof(screeningSynopsis) == 'undefined') ? console.log('not creating with screeningSynopsis') : screening.set('screeningSynopsis', screeningSynopsis);
+          (typeof(screeningPoster) == 'undefined') ? console.log('not updating with poster') : screening.set('screeningPoster', screeningPoster); 
+          (typeof(screeningReleaseDate) == 'undefined') ? console.log('not updating with release date') : screening.set('screeningReleaseDate', screeningReleaseDate);
+          (typeof(screeningContentRating) == 'undefined') ? console.log('not updating with content rating') : screening.set('screeningContentRating', screeningContentRating);
+          (typeof(screeningDuration) == 'undefined') ? console.log('not updating with duration') : screening.set('screeningDuration', screeningDuration); 
+          (typeof(screeningGenre) == 'undefined') ? console.log('not updating with genre') : screening.set('screeningGenre', screeningGenre);
+          (typeof(screeningDirectorInfo) == 'undefined') ? console.log('not updating with director info') : screening.set('screeningDirectorInfo', screeningDirectorInfo);
+          (typeof(screeningStarInfo) == 'undefined') ? console.log('not updating with star info') : screening.set('screeningStarInfo', screeningStarInfo); 
+          (typeof(screeningFee) == 'undefined') ? console.log('not updating with screening fee') : screening.set('screeningFee', screeningFee);
 
+          screening.set('createdBy', user);
+          screening.save();
+
+          console.log('update ended');
+        },function(error){
+          console.log('Error: ' + error.code + ' ' + error.message);
+        });
+      },
+
+      deleteScreening: function(screeningId){
+        this.getScreeningWithId(screeningId).then(function(screening){
+            screening.destroy();
+          },function(error){
+            console.log('Error: ' + error.code + ' ' + error.message);
+        });
       }
-    
     };
 
   }]);

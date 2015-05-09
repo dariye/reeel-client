@@ -43,7 +43,11 @@ var app = angular.module('reeelApp', [
         console.log('success', toState, toParams);
         $rootScope.currentUser = Parse.User.current();
     });
-
+    
+    /**
+     * Retrieve Screenings Globally
+     */
+    $rootScope.screenings = [];
     /**
      * Global Method
      * go() method to change routes
