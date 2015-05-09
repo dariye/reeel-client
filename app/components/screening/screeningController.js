@@ -46,22 +46,24 @@ angular.module('reeelApp')
   /**
   * Retrieve Screeing Details
   */
-  (Screening.getScreeningWithId($state.id).then(function(screening){
-    $scope.title = screening._serverData.screeningTitle;
-    $scope.date = screening._serverData.screeningDate;
-    $scope.synopsis = screening._serverData.screeningSynopsis;
-    $scope.genre = screening._serverData.screeningGenre;
-    $scope.release = screening._serverData.screeningReleaseDate;
-    $scope.rating = screening._serverData.screeningContentRating;
-    $scope.duration = screening._serverData.screeningDuration;
-    $scope.director = screening._serverData.screeningDirectorInfo;
-    $scope.star = screening._serverData.screeningStarInfo;
-    $scope.fee = screening._serverData.screeningFee;
-    $scope.photopath = screening._serverData.screeningPoster._name;
-    $timeout(function(){$scope.$apply();}, 150);
-  },function(error){
-    console.log('Error: ' + error.code + ' ' + error.message);
-  }));
+  if($state.id){
+    (Screening.getScreeningWithId($state.id).then(function(screening){
+      $scope.title = screening._serverData.screeningTitle;
+      $scope.date = screening._serverData.screeningDate;
+      $scope.synopsis = screening._serverData.screeningSynopsis;
+      $scope.genre = screening._serverData.screeningGenre;
+      $scope.release = screening._serverData.screeningReleaseDate;
+      $scope.rating = screening._serverData.screeningContentRating;
+      $scope.duration = screening._serverData.screeningDuration;
+      $scope.director = screening._serverData.screeningDirectorInfo;
+      $scope.star = screening._serverData.screeningStarInfo;
+      $scope.fee = screening._serverData.screeningFee;
+      $scope.photopath = screening._serverData.screeningPoster._name;
+      $timeout(function(){$scope.$apply();}, 150);
+    },function(error){
+      console.log('Error: ' + error.code + ' ' + error.message);
+    }));
+  }
   
   /**
    * Update Screening Information

@@ -11,7 +11,15 @@ angular.module('reeelApp')
       user.set('username', username);
       user.set('email', email);
       user.set('password', password);
-      
+      // /**
+      //  * Set ACL Permissions
+      //  */
+      // var acl = newParse.ACL();
+      // acl.setPublicReadAccess(true);
+
+      // var adminRole = new Parse.Role('admin', acl);
+      // adminRole.save();
+
       user.signUp(null, {
         success: function(user) {
           $rootScope.notify = {type: 'success', message: 'Successfully Created Account'};

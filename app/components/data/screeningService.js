@@ -10,6 +10,12 @@ angular.module('reeelApp')
       createScreening: function(screeningTitle, screeningDate, screeningSynopsis, screeningPoster, screeningReleaseDate, screeningContentRating, screeningDuration, screeningGenre, screeningDirectorInfo, screeningStarInfo, screeningFee){
       var screening = new Screening();
       var user = Parse.User.current();
+      /**
+       * Set Permission with ACL
+       */
+      // var acl = new Parse.ACL();
+      // acl.setPublicReadAccess(true);
+      // acl.setRoleWriteAccess("admins", true);
 
       screening.set('screeningTitle', screeningTitle);
       screening.set('screeningDate', screeningDate);
@@ -92,7 +98,12 @@ angular.module('reeelApp')
 
       deleteScreening: function(screeningId){
         this.getScreeningWithId(screeningId).then(function(screening){
-            screening.destroy();
+            screening.destroy(null, {
+            success: function(screening){
+            },
+            error: function(screening, error){
+            }
+            });
           },function(error){
             console.log('Error: ' + error.code + ' ' + error.message);
         });
