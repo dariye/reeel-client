@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('reeelApp')
-  .controller('LoginController', ['$rootScope', '$scope', '$state', 'User', function($rootScope, $scope, $state, User) {
+  .controller('LoginController', ['$rootScope', '$scope', '$state', 'User', '$location', function($rootScope, $scope, $state, User, $location) {
   
     var currentUser = $scope.currentUser = $rootScope.currentUser;
 
@@ -22,7 +22,7 @@ angular.module('reeelApp')
     if ($scope.username && $scope.password) {
       User.logIn($scope.username, $scope.password);
       console.log('in log in');
-      $rootScope.go('profile');
+      $location.path('/profile');
     }else {
       $rootScope.notify = { type: 'warning', message: 'Please enter fields correcty' };
       return;

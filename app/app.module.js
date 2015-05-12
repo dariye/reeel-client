@@ -24,7 +24,7 @@ var app = angular.module('reeelApp', [
 
 .value('$anchorScroll', angular.noop)
 
-.run(['ParseSDK', 'FileUploader', 'User', 'Screening', '$rootScope', '$state', '$stateParams', function(ParseSDK, FileUploader, User, Screening, $rootScope, $state, $stateParams) {
+.run(['ParseSDK', 'FileUploader', 'User', 'Screening', '$rootScope', '$state', '$stateParams', '$location', function(ParseSDK, FileUploader, User, Screening, $rootScope, $state, $stateParams, $location) {
     
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;
@@ -38,6 +38,7 @@ var app = angular.module('reeelApp', [
     });
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams) {
         console.log('to', toState, toParams);
+        console.log(toState.authenticated); 
     });
     $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams) {
         console.log('success', toState, toParams);
@@ -63,9 +64,9 @@ var app = angular.module('reeelApp', [
      */
      $rootScope.logOut = function () {
       Parse.User.logOut();
-      $rootScope.currentUser = Parse.User.current();
+      $rootScope.currentUser = null;
       $rootScope.notify = { type: 'success', message: 'Logged out successfully'};
-      $rootScope.go('landing');
+      $location.path('/login');
      }
     /**
      * alert 
