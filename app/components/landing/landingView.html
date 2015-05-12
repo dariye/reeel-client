@@ -1,4 +1,4 @@
-<div class="section">
+<div class="section" ng-show="currentUser">
   <div style="padding-left: 10px;" class="row left">
     <button ui-sref="screening.create" class="btn-floating btn-large waves-effect waves-light red" ><i class="mdi-content-add"></i></button>
   </div>
@@ -26,7 +26,9 @@
         <div class="card-content">
           <span class="card-title activator grey-text text-darken-4">{{screening._serverData.screeningTitle}}<i class="mdi-navigation-more-vert right"></i></span>
           
-          <p><a href="#">This is a link</a></p>
+          <span class="left">
+            <i class="mdi-device-access-time left">{{screening._serverData.screeningDate | date: 'EEEE, MMMM, d @ h:mm a'}}</i>
+          </span>
           <span class="right" ng-show="currentUser">
             <a class="waves-effect waves-light btn red" ui-sref="screening.update({ screeningId:screening.id })">Edit<i class="mdi-editor-mode-edit right"></i></a>
           </span>
