@@ -3,11 +3,13 @@
 angular.module('reeelApp')
   .controller('LoginController', ['$rootScope', '$scope', '$state', 'User', function($rootScope, $scope, $state, User) {
   
+    var currentUser = $scope.currentUser = $rootScope.currentUser;
+
     /**
      * Check if user is already logged in
      * Redirect to 'profile' state if already logged in
      */
-    if ($rootScope.currentUser){
+    if (currentUser){
       $rootScope.notify = { type: 'warning', message: 'Already logged in' };
       $rootScope.go('landing');
     }

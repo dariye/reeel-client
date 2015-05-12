@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('reeelApp')
-  .controller('ProfileController', ['ParseSDK', 'FileUploader', 'User', '$rootScope', '$scope', function(ParseSDK, FileUploader, User, $rootScope, $scope) {
+  .controller('ProfileController', ['ParseSDK', 'FileUploader', 'User', '$rootScope', '$scope', '$timeout', function(ParseSDK, FileUploader, User, $rootScope, $scope, $timeout) {
   
-
+  var currentUser = $scope.currentUser = $rootScope.currentUser;
   /**
    * get username and email
    */
@@ -22,6 +22,7 @@ angular.module('reeelApp')
   /**
    * profile data
    */
+
   $('img#profilePhoto')[0].src = profilePhoto.url();
   // $scope.profilePicture = User.getPhoto();
   $scope.name = User.getName();
