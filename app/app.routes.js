@@ -56,7 +56,7 @@ angular.module('reeelApp')
       templateUrl: 'components/screening/screeningView.html'
     })
     .state('screening.create', {
-      url: '/new',
+      url: '/screening/new',
       parent: 'screening',
       controller: 'ScreeningController',
       templateUrl: 'components/screening/create/createScreeningView.html',
