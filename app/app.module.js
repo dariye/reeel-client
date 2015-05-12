@@ -24,7 +24,7 @@ var app = angular.module('reeelApp', [
 
 .value('$anchorScroll', angular.noop)
 
-.run(['ParseSDK', 'FileUploader', 'User', 'Screening', '$rootScope', '$state', '$stateParams', '$location', function(ParseSDK, FileUploader, User, Screening, $rootScope, $state, $stateParams, $location) {
+.run(['ParseSDK', 'FileUploader', 'User', 'Screening', '$rootScope', '$state', '$stateParams', '$location', 'Auth', function(ParseSDK, FileUploader, User, Screening, $rootScope, $state, $stateParams, $location, Auth) {
     
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;
@@ -36,13 +36,18 @@ var app = angular.module('reeelApp', [
     $rootScope.$on('$stateChangeError', function() { 
       $state.go('login');
     });
-    $rootScope.$on('$stateChangeStart', function(event, toState, toParams) {
+    $rootScope.$on('$stateChangeStart', function(event, toState, toParams,  fromState, fromParams, error) {
         console.log('to', toState, toParams);
-        console.log(toState.authenticated); 
+        console.log('toState', toState);
+        console.log('toParams', toParams);
+
+        console.log('fromState', fromState);
+        console.log('fromParams', fromParams);
+        console.log('authenticated:', toState.authenticated);
+        
     });
-    $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams) {
+    $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams, error) {
         console.log('success', toState, toParams);
-        $rootScope.currentUser = Parse.User.current();
     });
     
     /**

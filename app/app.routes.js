@@ -6,13 +6,8 @@ angular.module('reeelApp')
    * Authorization
    */
   var authenticated = function(){
-    if(Parse.User.current()){
-      return true;
-    }else {
-      return false;
-    }
+     
   };
-
 
   $stateProvider
     .state('landing', {
@@ -48,7 +43,9 @@ angular.module('reeelApp')
       controller: 'ProfileController',
       templateUrl: 'components/user/profile/profileView.html',
       resolve: {
-        authenticated: authenticated 
+        authenticated: ['Auth', function(Auth) {
+          return Auth.isLoggedIn();
+        }]
       }
     })
     .state('screening', {
@@ -61,7 +58,9 @@ angular.module('reeelApp')
       controller: 'ScreeningController',
       templateUrl: 'components/screening/create/createScreeningView.html',
       resolve: {
-        authenticated: authenticated
+        authenticated: ['Auth', function(Auth){
+          return Auth.isLoggedIn();
+        }]
       }
     })
     .state('screening.update', {
@@ -70,7 +69,9 @@ angular.module('reeelApp')
       controller: 'ScreeningController',
       templateUrl: 'components/screening/update/updateScreeningView.html',
       resolve: {
-        authenticated: authenticated,
+        authenticated: ['Auth', function(Auth){
+          return Auth.isLoggedIn();
+        }],
         screeningId: ['$stateParams', function($stateParams){
           return $stateParams.screeningId;
         }]
