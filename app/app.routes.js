@@ -76,7 +76,28 @@ angular.module('reeelApp')
           return $stateParams.screeningId;
         }]
       }
-    }); 
+    })
+    .state('screening.index', {
+      url: 'screenings/:userId',
+      parent: 'screening',
+      controller: 'ScreeningController',
+      templateUrl: 'components/screening/index/indexScreeningView.html',
+      resolve: {
+        authenticated: ['Auth', function(Auth){
+          return Auth.isLoggedIn();
+        }],
+        userId: ['$stateParams', function($stateParams){
+          return $stateParams.userId;
+        }]
+      }
+    });
+    // })
+    // .state('guestlist', {
+    //   abstract: true,
+    //   templateUrl: 'components/guestlist/guestlistView.html'
+    // })
+    // .state('guestlist.index', {
+    //   url: 'guestslists'; 
   $urlRouterProvider.otherwise("/");
   $locationProvider.html5Mode(true).hashPrefix('!');
   

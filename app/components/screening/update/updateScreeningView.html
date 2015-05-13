@@ -1,64 +1,75 @@
 <div class="section">
   <h1> Update Screening </h1>
   <div class="row">
-    <form class="col s12" ng-submit="updateScreening()">
+    <form class="col s12 screening-form" ng-submit="createScreening()">
       <div class="row">
         <div class="input-field col s12">
-          <input placeholder="Screening Title" id="title" type="text" class="validate" ng-model="title">
+          <label for="title"> Screening Title </label>
+          <input id="title" type="text" class="validate" ng-model="title">
         </div>
       </div>
       <div class="row">
         <div class="input-field col s12">
-          <input placeholder="Screening Date" id="date" type="datetime-local" class="validate datepicker" ng-model="date">
+          <label for="date"> Screening Date </label>
+          <input id="date" type="datetime-local" class="validate datepicker" ng-model="date">
         </div>
       </div>
       <div class="row">
         <div class="input-field col s12">
-          <textarea placeholder="Screening Synopsis" id="synopsis" class="materialize-textaread" ng-model="synopsis"></textarea>
+          <label for="synopsis"> Screening Synopsis </label> 
+          <textarea id="synopsis" class="materialize-textarea" ng-model="synopsis"></textarea>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s12">
-          <input placeholder="Screening Genre" id="genre" type="text" class="validate" ng-model="genre">
+          <label for="location"> Screening Address </label>
+          <input id="location" type="text" class="validate" ng-model="location">
         </div>
       </div>
       <div class="row">
         <div class="input-field col s12">
-          <input placeholder="Screening Release Date" id="release" type="date" class="validate datepicker" ng-model="release">
+          <label for="genre"> Screening Genre </label>
+          <input id="genre" type="text" class="validate" ng-model="genre">
         </div>
       </div>
       <div class="row">
         <div class="input-field col s12">
-          <input placeholder="Screening Rating" id="rating" type="text" class="validate" ng-model="rating">
+          <label for="release"> Screening Release Date </label>
+          <input id="release" type="date" class="validate datepicker" ng-model="release">
         </div>
       </div>
       <div class="row">
         <div class="input-field col s12">
-          <input placeholder="Screening Duration" id="duration" type="number" class="validate" ng-model="duration">
+          <label for="rating"> Screening Content Rating(N/A if unknown) </label>
+          <input id="rating" type="text" class="validate" ng-model="rating">
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <label for="duration"> Screening Duration(ex. 114 min , or N/A if unknown) </label>
+          <input id="duration" type="text" class="validate" ng-model="duration">
         </div>
       </div>
        <div class="row">
         <div class="input-field col s12">
-          <input placeholder="Screening Director(s)" id="director" type="text" class="validate" ng-model="director">
+          <label for="director"> Director(s) </label>
+          <input id="director" type="text" class="validate" ng-model="director">
         </div>
       </div>
       <div class="row">
         <div class="input-field col s12">
-          <input placeholder="Screening Star(s)" id="star" type="text" class="validate" ng-model="star">
+          <label for="star"> Star(s) </label>
+          <input id="star" type="text" class="validate" ng-model="star">
         </div>
       </div>
       <div class="row">
         <div class="input-field col s12">
+          <label for="screeningType"> Screening Type </label>
           <select style="display: block;">
             <option value="" disabled selected ng-model="screeningType">Choose your option</option>
-            <option value="1">Free</option>
-            <option value="2">Discounted</option>
+            <option value="1">Outdoor</option>
+            <option value="2">Indoor</option>
           </select>
-        </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s12">
-          <input placeholder="Screening Fee" id="fee" type="number" class="validate" ng-model="fee" ng-disabled="screeningType">
         </div>
       </div>
       <div class="row">
@@ -75,7 +86,6 @@
     </form>
   </div>
 </div>
-
 
 
       

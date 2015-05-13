@@ -7,15 +7,15 @@ angular.module('reeelApp')
     var Screening = Parse.Object.extend('Screening');
 
     return {
-      createScreening: function(screeningTitle, screeningDate, screeningSynopsis, screeningPoster, screeningReleaseDate, screeningContentRating, screeningDuration, screeningGenre, screeningDirectorInfo, screeningStarInfo, screeningFee){
+      createScreening: function(screeningTitle, screeningDate, screeningSynopsis, screeningPoster, screeningReleaseDate, screeningContentRating, screeningDuration, screeningGenre, screeningDirectorInfo, screeningStarInfo, screeningLocation, screeningType){
       var screening = new Screening();
       var user = Parse.User.current();
       /**
        * Set Permission with ACL
        */
-      // var acl = new Parse.ACL();
-      // acl.setPublicReadAccess(true);
-      // acl.setRoleWriteAccess("admins", true);
+      var acl = new Parse.ACL();
+      acl.setPublicReadAccess(true);
+      acl.setWriteAccess(user, true);
 
       screening.set('screeningTitle', screeningTitle);
       screening.set('screeningDate', screeningDate);
@@ -27,12 +27,17 @@ angular.module('reeelApp')
       screening.set('screeningGenre', screeningGenre);
       screening.set('screeningDirectorInfo', screeningDirectorInfo);
       screening.set('screeningStarInfo', screeningStarInfo);
-      screening.set('screeningFee', screeningFee);
-      
+      screening.set('screeningLocation', screeningLocation);
+      screening.set('screeningType', screeningType);
+ 
       /**
-       * add a user a value in a screening
+       * set screening acl
        */
       screening.set('createdBy', user);
+      /**
+       * add acl
+       */
+      screening.setACL(acl);
 
       screening.save(null, {
         success: function(screening) {
@@ -48,10 +53,10 @@ angular.module('reeelApp')
       getAllScreening: function(){
         var Screening = Parse.Object.extend('Screening');
         this.query = (new Parse.Query(Screening));
-        
+         
         var fetched = this.query.find({
             success: function(screenings){
-              
+              $rootScope.screenings = screenings; 
               // console.log(screenings);
             },
             error: function(error){
@@ -59,6 +64,22 @@ angular.module('reeelApp')
             }
           });
         return fetched;
+      },
+      getAllUserScreenings: function(){
+        var Screening = Parse.Object.extend('Screening');
+        var user = Parse.User.current();
+        this.query = (new Parse.Query(Screening));
+        this.query.equalTo("createdBy", user);
+        
+        var fetched = this.query.find({
+          success: function(screenings){
+            $rootScope.screenings = screenings;
+          },
+          error: function(error){
+          }
+        });
+
+        return fetched; 
       },
       getScreeningWithId: function(id){
         var Screening = Parse.Object.extend('Screening');
@@ -68,7 +89,7 @@ angular.module('reeelApp')
 
         return fetched;
       },
-      updateScreening: function(screeningId, screeningTitle, screeningDate, screeningSynopsis, screeningPoster, screeningReleaseDate, screeningContentRating, screeningDuration, screeningGenre, screeningDirectorInfo, screeningStarInfo, screeningFee){
+      updateScreening: function(screeningId, screeningTitle, screeningDate, screeningSynopsis, screeningPoster, screeningReleaseDate, screeningContentRating, screeningDuration, screeningGenre, screeningDirectorInfo, screeningStarInfo, screeningLocation, screeningType){
       var user = Parse.User.current();
       // var query = new Parse.Query('Screening');
 
@@ -85,12 +106,13 @@ angular.module('reeelApp')
           (typeof(screeningGenre) == 'undefined') ? console.log('not updating with genre') : screening.set('screeningGenre', screeningGenre);
           (typeof(screeningDirectorInfo) == 'undefined') ? console.log('not updating with director info') : screening.set('screeningDirectorInfo', screeningDirectorInfo);
           (typeof(screeningStarInfo) == 'undefined') ? console.log('not updating with star info') : screening.set('screeningStarInfo', screeningStarInfo); 
-          (typeof(screeningFee) == 'undefined') ? console.log('not updating with screening fee') : screening.set('screeningFee', screeningFee);
-
-          screening.set('createdBy', user);
+          (typeof(screeningLocation) == 'undefined') ? console.log('not updating with screening location') : screening.set('screeningLocation', screeningLocation);
+          (typeof(screeningType) == 'undefined') ? console.log('not updating with screening type') : screening.set('screeningType', screeningType);
+          
           screening.save();
 
           console.log('update ended');
+
         },function(error){
           console.log('Error: ' + error.code + ' ' + error.message);
         });
@@ -98,12 +120,7 @@ angular.module('reeelApp')
 
       deleteScreening: function(screeningId){
         this.getScreeningWithId(screeningId).then(function(screening){
-            screening.destroy(null, {
-            success: function(screening){
-            },
-            error: function(screening, error){
-            }
-            });
+            screening.destroy({});
           },function(error){
             console.log('Error: ' + error.code + ' ' + error.message);
         });

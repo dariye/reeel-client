@@ -37,9 +37,9 @@
           <span class="left valign-wrapper truncate">
             <i class="mdi-maps-place left valign text-darken-2"> {{screening._serverData.screeningLocation}}</i>
           </span>
-          <!-- <span class="left" ng-if="currentUser"> -->
-          <!--   <a ui-sref="screening.update({ screeningId:screening.id })"><i class="mdi-editor-mode-edit"></i></a> -->
-          <!-- </span> -->
+          <span class="left" ng-if="currentUser">
+            <a ui-sref="screening.update({ screeningId:screening.id })"><i class="mdi-editor-mode-edit"></i></a>
+          </span>
         </div>
         <div class="card-reveal">
           <span class="card-title grey-text text-darken-4">{{screening._serverData.screeningTitle}}<span> ({{screening._serverData.screeningReleaseDate | date: 'yyyy'}})<i</span><i class="mdi-navigation-close right"></i></span>
@@ -56,7 +56,3 @@
     </div>
   </div>
 </div>
-
-
-
-

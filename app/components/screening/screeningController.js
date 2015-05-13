@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('reeelApp')
-  .controller('ScreeningController', ['$rootScope', '$scope', '$state', '$stateParams', 'User', 'Screening', '$timeout', function($rootScope, $scope, $state, $stateParams, User, Screening, $timeout){
+  .controller('ScreeningController', ['$rootScope', '$scope', '$state', '$stateParams', 'User', 'Screening', '$timeout', '$location', function($rootScope, $scope, $state, $stateParams, User, Screening, $timeout, $location){
  
   /**
    * Dynamic routing
@@ -24,7 +24,7 @@ angular.module('reeelApp')
    */
   $scope.createScreening = function () {
     
-    if($scope.title && $scope.date && $scope.synopsis && $scope.genre && $scope.release && $scope.rating && $scope.duration && $scope.director && $scope.star) {
+    if($scope.title && $scope.date && $scope.synopsis && $scope.genre && $scope.location && $scope.release && $scope.rating && $scope.duration && $scope.director && $scope.star, $scope.location) {
       /**
        * Convert datetime to unix timestamp
        */
@@ -35,7 +35,7 @@ angular.module('reeelApp')
         var name = uploader.files[0].name;
         var photo = new Parse.File(name, file);
       }
-      Screening.createScreening($scope.title, $scope.date, $scope.synopsis, photo, $scope.release, $scope.rating, $scope.duration, $scope.genre, $scope.director, $scope.star, $scope.fee); 
+      Screening.createScreening($scope.title, $scope.date, $scope.synopsis, photo, $scope.release, $scope.rating, $scope.duration, $scope.genre, $scope.director, $scope.star, $scope.location, $scope.screeningType); 
       $rootScope.go('landing');
     }else {
       $rootScope.notify = { type: 'warning', message: 'Please check missing form fields'};
@@ -44,7 +44,7 @@ angular.module('reeelApp')
   }
    
   /**
-  * Retrieve Screeing Details
+  * Retrieve Screening Details
   */
   if($state.id){
     (Screening.getScreeningWithId($state.id).then(function(screening){
@@ -57,7 +57,7 @@ angular.module('reeelApp')
       $scope.duration = screening._serverData.screeningDuration;
       $scope.director = screening._serverData.screeningDirectorInfo;
       $scope.star = screening._serverData.screeningStarInfo;
-      $scope.fee = screening._serverData.screeningFee;
+      $scope.screeningType = screening._serverData.screeningFee;
       $scope.photopath = screening._serverData.screeningPoster._name;
       $timeout(function(){$scope.$apply();}, 150);
     },function(error){
@@ -70,7 +70,6 @@ angular.module('reeelApp')
    */
   $scope.updateScreening = function () {
     
-    if($scope.title && $scope.date && $scope.synopsis && $scope.genre && $scope.release && $scope.rating && $scope.duration && $scope.director && $scope.star) {
       /**
        * Convert datetime to unix timestamp
        */
@@ -81,14 +80,14 @@ angular.module('reeelApp')
         var name = uploader.files[0].name;
         var photo = new Parse.File(name, file);
       }
-      Screening.createScreening($scope.title, $scope.date, $scope.synopsis, photo, $scope.release, $scope.rating, $scope.duration, $scope.genre, $scope.director, $scope.star, $scope.fee); 
-      $rootScope.go('landing');
-    }else {
-      $rootScope.notify = { type: 'warning', message: 'Please check missing form fields'};
-      return;
-    }
-  }
+      Screening.updateScreening($state.id, $scope.title, $scope.date, $scope.synopsis, photo, $scope.release, $scope.rating, $scope.duration, $scope.genre, $scope.director, $scope.star, $scope.location, $scope.screeningType);
 
+  }
+  
+  Screening.getAllUserScreenings().then(function(screenings){
+    $scope.screenings = screenings;
+    $timeout(function(){$scope.$apply();}, 150);
+  });
   /**
    * Delete Screening
    */
@@ -98,6 +97,7 @@ angular.module('reeelApp')
     var temp_title = $scope.title;
     if(confirmation){
       Screening.deleteScreening($state.id);
+      $timeout(function(){ $location.path('/landing'); $scope.$apply(); }, 150); 
       $rootScope.notify = { type: 'success', message: 'Successfully deleted' + ' ' + temp_title };
     }else{
       $rootScope.notify = { type: 'notice', message: 'Sssshew that was close' };

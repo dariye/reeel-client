@@ -38,7 +38,7 @@
       <li><a ng-click="logOut()">Sign Out<span class="medium mdi-action-exit-to-app right"></span></a></li>
     </ul>
     <div class="navbar-fixed">
-      <nav class="light-blue lighten-1" role="navigation">
+      <nav class="black lighten-1 header-nav" role="navigation">
         <div class="container">
           <div class="nav-wrapper">
             <div class="valign-demo valign-wrapper left">
@@ -50,12 +50,23 @@
 
               <!-- ui-sref-active="active" --> 
             </div>
-            <ul id="nav-mobile" class="right center-align hide-on-med-and-down">
-              <li style="width: 200px;" ng-show="currentUser"><a class="dropdown-button" href="#!" data-activates="dropdown1"><i class="large mdi-action-account-circle"></i></a></li>
-              <li style="width: 200px;" ng-hide="currentUser"><button type="button" ng-click="go('signup')" class="btn btn-success navbar-btn btn-circle">Sign Up</button></li>
-              <li style="width: 200px;"ng-hide="currentUser"><button type="button" ng-click="go('login')" class="btn btn-default navbar-btn">Sign In</button></li> 
+            <ul class="right center-align hide-on-med-and-down">
+              <li><a ui-sref="screening.index({ userId:currentUser.id })" class="right"> My Screenings </a></li>
+              <li style="width: 200px;" ng-if="currentUser"><a class="dropdown-button" href="#!" data-activates="dropdown1"><i class="large mdi-action-account-circle"></i></a></li>
+              <li style="width: 200px;" ng-if="!currentUser"><button type="button" ui-sref="signup" class="btn btn-success navbar-btn btn-circle">Sign Up</button></li>
+              <li style="width: 200px;"ng-if="!currentUser"><button type="button" ui-sref="login" class="btn btn-default navbar-btn">Sign In</button></li> 
             </ul>
             <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+            <ul id="nav-mobile" class="side-nav right" style="left: -250px;" ng-if="!currentUser">
+              <li style="width: 200px;"><button type="button" ui-sref="signup" class="btn btn-success navbar-btn btn-circle">Sign Up</button></li>
+              <li style="width: 200px;"><button type="button" ui-sref="login" class="btn btn-default navbar-btn">Sign In</button></li> 
+            </ul>
+            <ul id="nav-mobile" class="side-nav right" style="left: -250px;" ng-if="currentUser">
+              <li><a ui-sref="screening.index({ userId:currentUser.id })"> My Screenings </a></li>
+              <li><a ui-sref="profile">Account Settings<span class="medium mdi-action-settings right"></span></a></li>
+      <li class="divider"></li>
+             <li><a ng-click="logOut()">Sign Out<span class="medium mdi-action-exit-to-app right"></span></a></li>
+            </ul>
           </div>
         </div>
       </nav>
@@ -67,7 +78,7 @@
     </div>
     </main>
 
-    <footer class="page-footer">
+    <footer class="page-footer black">
       <div class="container">
         <div class="row">
           <div class="col l6 s12">
@@ -135,15 +146,18 @@
         <!-- TODO: Make directive for plugins -->
         <script type="text/javascript">
           $(document).ready(function(){
+            $('.button-collapse').sideNav();
             $('.dropdown-button').dropdown();
             $('.modal-trigger').leanModal();
             $('select').material_select();
             $('select').material_select('destroy');
+            $('.scrollspy').scrollSpy();
             $('.datepicker').pickadate({
               selectMonths: true, // Creates a dropdown to control month
               selectYears: 15 // Creates a dropdown of 15 years to control year
             });
             $('.parallax').parallax(); // Parallax
+            $('.search-wrap').pushpin({ top: 0 });
           });
             
         </script>
