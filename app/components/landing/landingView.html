@@ -1,35 +1,36 @@
-<div class="section" ng-show="currentUser">
+<div class="section" ng-if="currentUser">
   <div style="padding-left: 10px;" class="row left">
     <button ui-sref="screening.create" class="btn-floating btn-large waves-effect waves-light red" ><i class="mdi-content-add"></i></button>
   </div>
 </div>
 
-<!-- <nav> -->
-<!--   <div class="nav-wrapper"> -->
-<!--     <form class="col s11"> -->
-<!--       <div class="input-field"> -->
-<!--         <input id="search" type="search" required> -->
-<!--         <label for="search"><i class="mdi-action-search"></i></label> -->
-<!--         <i class="mdi-navigation-close"></i> -->
-<!--       </div> -->
-<!--     </form> -->
-<!--   </div> -->
-<!-- </nav> --> 
-
+<div class="section">
+  <div class="row">
+    <form class="col s11">
+      <div class="input-field">
+        <input id="search" ng-model="searchText" type="search">
+        <label for="search"><i class="mdi-action-search"></i></label>
+        <i class="mdi-navigation-close"></i>
+      </div>
+    </form>
+  </div>
+</div>
 <div class="section">
   <div class="row" style="padding-top: 50px;">
-    <div ng-repeat="screening in screenings" class="col s6">
-      <div class="card small">
+    <div ng-repeat="screening in screenings | filter:searchText" class="col s12 m6">
+      <div class="card medium">
         <div class="card-image waves-effect waves-block waves-light">
           <img class="activator" src="{{screening._serverData.screeningPoster._url}}"/>
         </div>
         <div class="card-content">
-          <span class="card-title activator grey-text text-darken-4">{{screening._serverData.screeningTitle}}<i class="mdi-navigation-more-vert right"></i></span>
+          <p>
+            <span class="card-title activator grey-text text-darken-4">{{screening._serverData.screeningTitle}}<i class="mdi-navigation-more-vert right"></i></span>
+          </p>
           
-          <span class="left">
-            <i class="mdi-device-access-time left">{{screening._serverData.screeningDate | date: 'EEEE, MMMM, d @ h:mm a'}}</i>
+          <span class="left valign-wrapper">
+            <i class="mdi-device-access-time left valign"> {{screening._serverData.screeningDate | date: 'EEEE, MMMM, d @ h:mm a'}}</i>
           </span>
-          <span class="right" ng-show="currentUser">
+          <span class="right" ng-if="currentUser">
             <a class="waves-effect waves-light btn red" ui-sref="screening.update({ screeningId:screening.id })">Edit<i class="mdi-editor-mode-edit right"></i></a>
           </span>
         </div>
