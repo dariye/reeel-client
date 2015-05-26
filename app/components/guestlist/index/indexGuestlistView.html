@@ -1,0 +1,30 @@
+<div class="section" ng-if="screenings">
+  <nav style="" class="search-wrap black">
+    <div class="nav-wrapper row">
+      <form class="col s12">
+        <div class="input-field">
+          <input id="search" ng-model="searchText" type="search">
+          <label for="search"><i class="mdi-action-search"></i></label>
+          <i class="mdi-navigation-close"></i>
+        </div>
+      </form>
+    </div>
+  </nav>
+</div>
+<div class="section" style="padding-top: 50px;">
+  <div class="row">
+    <span ng-hide="screenings"> Sorry No Guest GuestLists</span>
+    <div ng-repeat="screening in screenings | filter:searchText" class="col s12 m6">
+      <a ui-sref="screening.show({ screeningId:screening.id, guestlistId:guestlist.id })">
+        <div class="card-panel medium">
+          <div class="card-content">
+            <p class="white-text">  
+              <span class="card-title activator grey-text text-darken-4">{{screening._serverData.screeningTitle}}<i class="mdi-navigation-more-vert right"></i></span>
+            </p>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+

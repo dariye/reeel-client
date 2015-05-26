@@ -33,6 +33,7 @@
       </div> --><!-- end of notifications -->
     <!-- Dropdown Structure -->
     <ul id="dropdown1" style="width: 200px;" class="dropdown-content">
+      <li><a ui-sref="guestlist.index" class="right"> GuestLists </a></li>
       <li><a ui-sref="profile">Account Settings<span class="medium mdi-action-settings right"></span></a></li>
       <li class="divider"></li>
       <li><a ng-click="logOut()">Sign Out<span class="medium mdi-action-exit-to-app right"></span></a></li>
@@ -52,6 +53,7 @@
             </div>
             <ul class="right center-align hide-on-med-and-down">
               <li><a ui-sref="screening.index({ userId:currentUser.id })" class="right"> My Screenings </a></li>
+              <li><a ui-sref="guestlist.index" class="right"> GuestLists </a></li>
               <li style="width: 200px;" ng-if="currentUser"><a class="dropdown-button" href="#!" data-activates="dropdown1"><i class="large mdi-action-account-circle"></i></a></li>
               <li style="width: 200px;" ng-if="!currentUser"><button type="button" ui-sref="signup" class="btn btn-success navbar-btn btn-circle">Sign Up</button></li>
               <li style="width: 200px;"ng-if="!currentUser"><button type="button" ui-sref="login" class="btn btn-default navbar-btn">Sign In</button></li> 
@@ -140,8 +142,7 @@
         <script src="shared/ngAutocomplete.js"></script>
         <script src="components/landing/landingController.js"></script>
         <script src="components/screening/screeningController.js"></script>
-  
-
+        <script src="components/guestlist/guestlistController.js"></script>
 
         <!-- TODO: Make directive for plugins -->
         <script type="text/javascript">

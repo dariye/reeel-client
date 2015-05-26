@@ -90,14 +90,40 @@ angular.module('reeelApp')
           return $stateParams.userId;
         }]
       }
+    })
+    .state('guestlist', {
+      abstract: true,
+      templateUrl: 'components/guestlist/guestlistView.html'
+    })
+    .state('guestlist.index', {
+      url: 'guestlists',
+      parent: 'guestlist',
+      controller: 'GuestListController',
+      templateUrl: 'components/guestlist/index/indexGuestlistView.html',
+      resolve: {
+        authenticated: ['Auth', function(Auth){
+          return Auth.isLoggedIn();
+        }]
+      }
+    })
+    .state('guestlist.show', {
+      url: 'guestlist/:screeningId/:guestlistId',
+      parent: 'guestlist',
+      controller: 'GuestListControler',
+      templateUrl: 'components/guestlist/show/showGuestlistView.html',
+      resolve: {
+        authenticated: ['Auth', function(Auth){
+          return Auth.isLoggedIn();
+        }],
+        screeningId: ['$stateParams', function($stateParams){
+          return $stateParams.screeningId;
+        }],
+        guestlistId: ['$stateParams', function($stateParams){
+          return $stateParams.guestlistId;
+        }]
+      }
     });
-    // })
-    // .state('guestlist', {
-    //   abstract: true,
-    //   templateUrl: 'components/guestlist/guestlistView.html'
-    // })
-    // .state('guestlist.index', {
-    //   url: 'guestslists'; 
+  
   $urlRouterProvider.otherwise("/");
   $locationProvider.html5Mode(true).hashPrefix('!');
   
