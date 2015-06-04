@@ -5,9 +5,7 @@ angular.module('reeelApp')
    /**
    * Authorization
    */
-  var authenticated = function(){
-     
-  };
+  var authenticated = null;
 
   $stateProvider
     .state('landing', {
