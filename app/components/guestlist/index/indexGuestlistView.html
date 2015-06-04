@@ -13,9 +13,9 @@
 </div>
 <div class="section" style="padding-top: 50px;">
   <div class="row">
-    <span ng-hide="screenings"> Sorry No Guest GuestLists</span>
+    <span ng-hide="screenings"> Sorry No GuestLists</span>
     <div ng-repeat="screening in screenings | filter:searchText" class="col s12 m6">
-      <a ui-sref="screening.show({ screeningId:screening.id, guestlistId:guestlist.id })">
+      <a ui-sref="screening.show({ screeningId: screening.id, guestlistId: guestlist.id })">
         <div class="card-panel medium">
           <div class="card-content">
             <p class="white-text">  
