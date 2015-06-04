@@ -36,7 +36,7 @@ angular.module('reeelApp')
         var photo = new Parse.File(name, file);
       }
       Screening.createScreening($scope.title, $scope.date, $scope.synopsis, photo, $scope.release, $scope.rating, $scope.duration, $scope.genre, $scope.director, $scope.star, $scope.location, $scope.screeningType); 
-      $rootScope.go('landing');
+      $rootScope.go('screening.index');
     }else {
       $rootScope.notify = { type: 'warning', message: 'Please check missing form fields'};
       return;
@@ -56,6 +56,7 @@ angular.module('reeelApp')
       $scope.rating = screening._serverData.screeningContentRating;
       $scope.duration = screening._serverData.screeningDuration;
       $scope.director = screening._serverData.screeningDirectorInfo;
+      $scope.location = screening._serverData.screeningLocation;
       $scope.star = screening._serverData.screeningStarInfo;
       $scope.screeningType = screening._serverData.screeningFee;
       $scope.photopath = screening._serverData.screeningPoster._name;
@@ -68,20 +69,20 @@ angular.module('reeelApp')
   /**
    * Update Screening Information
    */
-  $scope.updateScreening = function () {
+  $scope.updateScreening = function(){
     
       /**
        * Convert datetime to unix timestamp
        */
       // $scope.date = Date.parse($scope.date)/1000
       
-      if(uploader.files.length > 0){
-        var file = uploader.files[0];
-        var name = uploader.files[0].name;
-        var photo = new Parse.File(name, file);
-      }
-      Screening.updateScreening($state.id, $scope.title, $scope.date, $scope.synopsis, photo, $scope.release, $scope.rating, $scope.duration, $scope.genre, $scope.director, $scope.star, $scope.location, $scope.screeningType);
-
+    if(uploader.files.length > 0){
+      var file = uploader.files[0];
+      var name = uploader.files[0].name;
+      var photo = new Parse.File(name, file);
+    }
+    Screening.updateScreening($state.id, $scope.title, $scope.date, $scope.synopsis, photo, $scope.release, $scope.rating, $scope.duration, $scope.genre, $scope.director, $scope.star, $scope.location, $scope.screeningType);
+    $timeout(function(){ $rootScope.go('screening.index'); $scope.$apply(); }, 150);
   }
   
   Screening.getAllUserScreenings().then(function(screenings){
