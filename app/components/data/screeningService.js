@@ -7,7 +7,7 @@ angular.module('reeelApp')
     var Screening = Parse.Object.extend('Screening');
 
     return {
-      createScreening: function(screeningTitle, screeningDate, screeningSynopsis, screeningPoster, screeningReleaseDate, screeningContentRating, screeningDuration, screeningGenre, screeningDirectorInfo, screeningStarInfo, screeningLocation, screeningType){
+      createScreening: function(screeningTitle, screeningDate, screeningSynopsis, screeningPoster, screeningReleaseDate, screeningContentRating, screeningDuration, screeningGenre, screeningDirectorInfo, screeningStarInfo, screeningLocation, screeningType, screeningLink, screeningTerms, screeningMaxSitting){
       var screening = new Screening();
       var user = Parse.User.current();
       /**
@@ -29,7 +29,9 @@ angular.module('reeelApp')
       screening.set('screeningStarInfo', screeningStarInfo);
       screening.set('screeningLocation', screeningLocation);
       screening.set('screeningType', screeningType);
- 
+      screening.set('screeningLink', screeningLink);
+      screening.set('screeningTerms', screeningTerms);
+      screening.set('screeningMaxSitting', screeningMaxSitting);
       /**
        * set screening acl
        */
@@ -60,7 +62,7 @@ angular.module('reeelApp')
               // console.log(screenings);
             },
             error: function(error){
-              consol.log('Error: ' + error.code + ' ' + error.message);
+              console.log('Error: ' + error.code + ' ' + error.message);
             }
           });
         return fetched;
@@ -89,7 +91,7 @@ angular.module('reeelApp')
 
         return fetched;
       },
-      updateScreening: function(screeningId, screeningTitle, screeningDate, screeningSynopsis, screeningPoster, screeningReleaseDate, screeningContentRating, screeningDuration, screeningGenre, screeningDirectorInfo, screeningStarInfo, screeningLocation, screeningType){
+      updateScreening: function(screeningId, screeningTitle, screeningDate, screeningSynopsis, screeningPoster, screeningReleaseDate, screeningContentRating, screeningDuration, screeningGenre, screeningDirectorInfo, screeningStarInfo, screeningLocation, screeningType, screeningLink, screeningTerms, screeningMaxSitting){
       var user = Parse.User.current();
       // var query = new Parse.Query('Screening');
 
@@ -108,6 +110,9 @@ angular.module('reeelApp')
           (typeof(screeningStarInfo) == 'undefined') ? console.log('not updating with star info') : screening.set('screeningStarInfo', screeningStarInfo); 
           (typeof(screeningLocation) == 'undefined') ? console.log('not updating with screening location') : screening.set('screeningLocation', screeningLocation);
           (typeof(screeningType) == 'undefined') ? console.log('not updating with screening type') : screening.set('screeningType', screeningType);
+          (typeof(screeningLink) == 'undefined') ? console.log('not updating with screening link') : screening.set('screeningLink', screeningLink);
+          (typeof(screeningTerms) == 'undefined') ? console.log('not updating with screening terms') : screening.set('screeningTerms', screeningTerms);
+          (typeof(screeningMaxSitting) == 'undefined') ? console.log('not updating with screening max sitting') : screening.set('screeningMaxSitting', screeningMaxSitting);
           
           screening.save();
 

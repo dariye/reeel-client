@@ -24,7 +24,7 @@ angular.module('reeelApp')
    */
   $scope.createScreening = function () {
     
-    if($scope.title && $scope.date && $scope.synopsis && $scope.genre && $scope.location && $scope.release && $scope.rating && $scope.duration && $scope.director && $scope.star, $scope.location) {
+    if($scope.title && $scope.date && $scope.synopsis && $scope.genre && $scope.location && $scope.release && $scope.rating && $scope.duration && $scope.director && $scope.star, $scope.location && $scope.sitting) {
       /**
        * Convert datetime to unix timestamp
        */
@@ -35,7 +35,7 @@ angular.module('reeelApp')
         var name = uploader.files[0].name;
         var photo = new Parse.File(name, file);
       }
-      Screening.createScreening($scope.title, $scope.date, $scope.synopsis, photo, $scope.release, $scope.rating, $scope.duration, $scope.genre, $scope.director, $scope.star, $scope.location, $scope.screeningType); 
+      Screening.createScreening($scope.title, $scope.date, $scope.synopsis, photo, $scope.release, $scope.rating, $scope.duration, $scope.genre, $scope.director, $scope.star, $scope.location, $scope.screeningType, $scope.link, $scope.terms, $scope.sitting); 
       $rootScope.go('screening.index');
     }else {
       $rootScope.notify = { type: 'warning', message: 'Please check missing form fields'};
@@ -59,6 +59,9 @@ angular.module('reeelApp')
       $scope.location = screening._serverData.screeningLocation;
       $scope.star = screening._serverData.screeningStarInfo;
       $scope.screeningType = screening._serverData.screeningFee;
+      $scope.link = screening._serverData.screeningLink;
+      $scope.terms = screening._serverData.screeningTerms;
+      $scope.sitting = screening_serverData.screeningMaxSitting;
       $scope.photopath = screening._serverData.screeningPoster._name;
       $timeout(function(){$scope.$apply();}, 150);
     },function(error){
@@ -81,7 +84,7 @@ angular.module('reeelApp')
       var name = uploader.files[0].name;
       var photo = new Parse.File(name, file);
     }
-    Screening.updateScreening($state.id, $scope.title, $scope.date, $scope.synopsis, photo, $scope.release, $scope.rating, $scope.duration, $scope.genre, $scope.director, $scope.star, $scope.location, $scope.screeningType);
+    Screening.updateScreening($state.id, $scope.title, $scope.date, $scope.synopsis, photo, $scope.release, $scope.rating, $scope.duration, $scope.genre, $scope.director, $scope.star, $scope.location, $scope.screeningType, $scope.link, $scope.terms, $scope.sitting);
     $timeout(function(){ $rootScope.go('screening.index'); $scope.$apply(); }, 150);
   }
   
