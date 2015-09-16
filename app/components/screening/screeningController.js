@@ -61,7 +61,7 @@ angular.module('reeelApp')
       $scope.screeningType = screening._serverData.screeningFee;
       $scope.link = screening._serverData.screeningLink;
       $scope.terms = screening._serverData.screeningTerms;
-      $scope.sitting = screening_serverData.screeningMaxSitting;
+      $scope.sitting = screening._serverData.screeningMaxSitting;
       $scope.photopath = screening._serverData.screeningPoster._name;
       $timeout(function(){$scope.$apply();}, 150);
     },function(error){
